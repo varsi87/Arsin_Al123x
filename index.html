@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>پنل ⚡ گیمینگ فوق‌سریع | WireGuard</title>
+<title>پنل 🎮 گیمینگ و وبگردی | WireGuard</title>
 <style>
 :root{--accent:#22c55e;--accent2:#3b82f6;--card:rgba(12,18,34,0.95);--text:#e2e8f0;--muted:#94a3b8;--border:#22c55e55}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -45,9 +45,9 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
 <body>
 <div class="wrap">
   <header>
-    <h1>⚡ پنل تست گیمینگ پرسرعت</h1>
-    <p style="color:var(--muted);margin-top:6px;font-size:0.9rem">پینگ فوق‌العاده پایین مخصوص پابجی و گیم | WireGuard</p>
-    <span class="badge">مخصوص تست با سرعت بالا</span>
+    <h1>🌐 پنل گیمینگ و وبگردی پرسرعت</h1>
+    <p style="color:var(--muted);margin-top:6px;font-size:0.9rem">مخصوص گیم و وبگردی روانی | WireGuard</p>
+    <span class="badge">مدیریت کانفیگ‌های اختصاصی</span>
   </header>
 
   <div class="nav">
@@ -68,14 +68,14 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
 
   <div id="tab-create" class="tab">
     <div class="card">
-      <h2>➕ ساخت کانفیگ تست گیم</h2>
+      <h2>➕ ساخت کانفیگ گیم و وبگردی</h2>
       <div class="row">
         <div><label>روز اعتبار</label><input type="number" id="cfgDays" min="1" max="365" value="30"/></div>
         <div><label>کاربر</label><input type="number" id="cfgUsers" min="1" max="50" value="1"/></div>
         <div><label>حجم (گیگ)</label><input type="number" id="cfgGB" min="1" max="50000" value="100"/></div>
       </div>
       <label>نام (اختیاری)</label>
-      <input type="text" id="cfgName" placeholder="تست گیمینگ پینگ عالی"/>
+      <input type="text" id="cfgName" placeholder="گیم و وبگردی ویژه"/>
       <div style="margin-top:12px"><button type="button" class="btn btn-p" id="btnCreate">✨ ساخت + دانلود</button></div>
     </div>
   </div>
@@ -109,13 +109,12 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
 
 <script>
 (function(){
-  var PANEL = {"id":"pnl_game_mamadhp","countryCode":"gaming","countryName":"سرور گیمینگ پرسرعت","flag":"⚡","totalGB":50000,"endpoint":"game2.mamadhpbot.ir:2053"};
-  var SERVER_PUBLIC_KEY = "gzRUDXQLbGOO/JWTCDGtkA6clTkFw2xL2FAZ6aW5cXc=";
-  var SOURCE_PRIVATE_KEY = "YH3w/QhWYihpZ6tBWi9csO/xd+Ki77cGdEabUYplB3E=";
-  var SOURCE_ADDRESS = "10.0.1.57/32";
-  var SOURCE_DNS = "1.1.1.1, 8.8.8.8";
-  var SOURCE_MTU = 1300;
-  var STORAGE_KEY = "wg_game_mamadhp_storage_7781";
+  var PANEL = {"id":"pnl_web_stonecold","countryCode":"gaming_web","countryName":"سرور گیم و وبگردی","flag":"⚡","totalGB":50000,"endpoint":"wb.stonecoldstunner.ir:9999"};
+  var SERVER_PUBLIC_KEY = "YwsG3m8slWbvaEaQIR7GCLkHoN8fMf8496Hm13QPAEA=";
+  var SOURCE_PRIVATE_KEY = "aDk1d1KWFPl55cfXyu+Vzm+9Ov49rcJTSuVnHDOqH0w=";
+  var SOURCE_ADDRESS = "10.8.12.222/32";
+  var SOURCE_DNS = "1.1.1.1";
+  var STORAGE_KEY = "wg_web_stonecold_storage_4412";
   var CONFIGS = [];
   var CONSUMED = 0;
   var LAST_SUB_URL = "";
@@ -182,23 +181,23 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
   }
 
   function buildConf(name, days, users, gb) {
-    var ep = "game2.mamadhpbot.ir:2053";
+    var ep = "wb.stonecoldstunner.ir:9999";
     var safe = String(name).replace(/[^\x20-\x7E]/g,"_").slice(0,40);
     var conf = [
-      "# Gaming WireGuard | Ultra Speed Test",
+      "# Gaming & Web WireGuard | High Speed",
       "# Name: "+safe,
       "# Volume: "+gb+"GB",
       "# Time: "+days+" days",
       "",
       "[Interface]",
+      "# 6ad89fd5e04bcac87d6b5361",
       "PrivateKey = "+SOURCE_PRIVATE_KEY,
       "Address = "+SOURCE_ADDRESS,
       "DNS = "+SOURCE_DNS,
-      "MTU = "+SOURCE_MTU,
       "",
       "[Peer]",
       "PublicKey = "+SERVER_PUBLIC_KEY,
-      "AllowedIPs = 0.0.0.0/0, ::/0",
+      "AllowedIPs = 0.0.0.0/0",
       "Endpoint = "+ep,
       "PersistentKeepalive = 25",
       ""
@@ -231,7 +230,7 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
     document.getElementById("statusMeta").innerHTML =
       "سرور: "+PANEL.flag+" "+PANEL.countryName+"<br>"+
       "حجم کل: <strong style='color:#86efac'>"+used+"</strong> / "+total+" GB — باقی: <strong>"+rem+"</strong> GB<br>"+
-      "کانفیگ فعال: <strong>"+act+"</strong> / "+CONFIGS.length+"<br><span class='owner'>مخصوص تست سرعت گیم</span>";
+      "کانفیگ فعال: <strong>"+act+"</strong> / "+CONFIGS.length+"<br><span class='owner'>مخصوص گیمینگ و وبگردی روانی</span>";
     var pct = Math.min(100, Math.round((used/total)*100));
     var fill = document.getElementById("quotaFill");
     fill.style.width = pct+"%";
@@ -260,7 +259,7 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
       var on = isActive(cfg);
       var left = remainingDays(cfg);
       var st = on ? "فعال" : (cfg.inSub===false?"غیرفعال":(left<=0?"منقضی":"حجم تمام"));
-      html += '<div class="cfg" style="opacity:'+(on?1:0.55)+'"><strong>⚡ '+(cfg.name||("#"+(i+1)))+'</strong> <span style="font-size:0.75rem;color:'+(on?"#86efac":"#fca5a5")+'">● '+st+'</span><br>'+
+      html += '<div class="cfg" style="opacity:'+(on?1:0.55)+'"><strong>🌐 '+(cfg.name||("#"+(i+1)))+'</strong> <span style="font-size:0.75rem;color:'+(on?"#86efac":"#fca5a5")+'">● '+st+'</span><br>'+
         '<span style="font-size:0.82rem;color:var(--muted)">'+(cfg.days||0)+' روز • باقی: '+left+' • '+(cfg.gb||0)+' گیگ</span>'+cfgButtons(cfg,i,on)+'</div>';
     });
     list.innerHTML = html;
@@ -299,14 +298,14 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
 
   function buildSubPageHtml(cfg) {
     var on = isActive(cfg);
-    var nameStr = String(cfg.name || "گیمینگ");
+    var nameStr = String(cfg.name || "گیم و وبگردی");
     var totalGB = Number(cfg.gb)||0;
     var confData = on ? (cfg.confText || "") : "";
     var statusTxt = on ? "فعال" : "غیرفعال";
     var subId = String(cfg.id || Math.random().toString(16).slice(2)).replace(/[^a-zA-Z0-9]/g,"").slice(0,16);
     var qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=8&data=" + encodeURIComponent(confData ? confData.slice(0,1200) : "INACTIVE");
     return '<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>'+
-      '<title>ساب گیمینگ | '+nameStr.replace(/</g,"")+'</title><style>'+
+      '<title>ساب | '+nameStr.replace(/</g,"")+'</title><style>'+
       '*{box-sizing:border-box;margin:0;padding:0}body{font-family:Tahoma,Arial,sans-serif;background:linear-gradient(165deg,#051e11,#0a3622);color:#e8e0f0;padding:14px;min-height:100%}'+
       '.page{max-width:420px;margin:0 auto}.card{background:rgba(20,50,35,.95);border:1px solid rgba(34,197,94,.3);border-radius:16px;overflow:hidden;margin-bottom:12px}'+
       '.row{display:flex;justify-content:space-between;padding:13px 16px;border-bottom:1px solid rgba(255,255,255,.06)}.lbl{color:#86efac;font-size:13px}.val{color:#f3e8ff;font-weight:700;direction:ltr;text-align:left;max-width:58%;word-break:break-all}'+
@@ -314,16 +313,16 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
       '.btn{display:block;width:100%;padding:14px;border:none;border-radius:28px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-weight:800;cursor:pointer;margin:12px 0;font-family:inherit}'+
       '.qr{background:#fff;border-radius:16px;padding:16px;text-align:center;margin:12px 0}.conf{background:rgba(10,20,15,.95);border-radius:12px;padding:12px;font-family:monospace;font-size:11px;direction:ltr;text-align:left;max-height:260px;overflow:auto;color:#86efac;white-space:pre-wrap;word-break:break-all}'+
       '.owner{text-align:center;color:#86efac;font-weight:700;margin:8px 0}</style></head><body><div class="page">'+
-      '<h2 style="text-align:center;color:#86efac">⚡ کانفیگ تست سرعت گیم</h2><p class="owner">پینگ فوق‌العاده پایین</p>'+
+      '<h2 style="text-align:center;color:#86efac">⚡ کانفیگ گیمینگ و وبگردی</h2><p class="owner">سرعت بالا و پینگ پایین</p>'+
       '<div class="card">'+
       '<div class="row"><span class="lbl">نام</span><span class="val">'+nameStr.replace(/</g,"")+'</span></div>'+
       '<div class="row"><span class="lbl">شناسه</span><span class="val">'+subId+'</span></div>'+
       '<div class="row"><span class="lbl">حجم</span><span class="val">'+totalGB+' GB</span></div>'+
       '<div class="row"><span class="lbl">وضعیت</span><span class="val"><span class="pill '+(on?"ok":"off")+'">'+statusTxt+'</span></span></div></div>'+
       '<div class="conf">'+(confData||"⛔ کانفیگ غیرفعال").replace(/</g,"&lt;")+'</div>'+
-      (on?'<button class="btn" onclick="var c='+JSON.stringify(confData)+';var a=document.createElement(\'a\');a.href=URL.createObjectURL(new Blob([c]));a.download=\'game_test_config.conf\';a.click()">⬇️ دانلود کانفیگ</button>':'<button class="btn" disabled>⛔ غیرفعال</button>')+
+      (on?'<button class="btn" onclick="var c='+JSON.stringify(confData)+';var a=document.createElement(\'a\');a.href=URL.createObjectURL(new Blob([c]));a.download=\'web_config.conf\';a.click()">⬇️ دانلود کانفیگ</button>':'<button class="btn" disabled>⛔ غیرفعال</button>')+
       '<div class="qr">'+(on?'<img src="'+qrUrl+'" width="220" height="220"/>':'<div style="padding:80px;color:#86efac">⛔ غیرفعال</div>')+
-      '<p class="owner">⚡ آماده برای تست و ترکاندن پینگ</p></div></body></html>';
+      '<p class="owner">⚡ آماده برای گیم و وبگردی روانی</p></div></body></html>';
   }
 
   function buildAllSubPageHtml() {
@@ -337,7 +336,7 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
     }).join("");
     return '<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="UTF-8"/><title>ساب همه کانفیگ‌ها</title></head>'+
       '<body style="font-family:Tahoma;background:#f0f2f5;padding:16px;max-width:480px;margin:0 auto">'+
-      '<h2>⚡ ساب همه کانفیگ‌های تست</h2>'+cards+'</body></html>';
+      '<h2>⚡ ساب همه کانفیگ‌های گیم و وبگردی</h2>'+cards+'</body></html>';
   }
 
   async function uploadHtml(bodyHtml) {
@@ -405,7 +404,7 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
     var gb = parseInt(document.getElementById("cfgGB").value,10)||100;
     if (gb > rem) { gb = rem; toast("حجم محدود به "+rem+" GB"); }
     var name = (document.getElementById("cfgName").value||"").trim();
-    if (!name) name = "تست-گیم-سرعت-بالا-"+days+"روزه-"+gb+"گیگ";
+    if (!name) name = "گیم-وبگردی-"+days+"روزه-"+gb+"گیگ";
     var built = buildConf(name, days, users, gb);
     CONFIGS.unshift({
       id: "cfg_"+Date.now().toString(36), name:name, days:days, users:users, gb:gb, usedGB:0,
@@ -417,7 +416,7 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
     save();
     renderList(); renderDash(); renderSub();
     downloadText(built.conf, name.replace(/[\\/:*?"<>|]+/g,"_").replace(/\s+/g,"_").slice(0,60)+".conf");
-    toast("✅ کانفیگ تست گیم ساخته و دانلود شد");
+    toast("✅ کانفیگ ساخته و دانلود شد");
     document.getElementById("cfgName").value = "";
     switchTab("configs");
   }
@@ -467,7 +466,7 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
   });
   document.getElementById("btnOpenSub").addEventListener("click", function(){
     var v = document.getElementById("subHttps").value;
-    if (v && v.indexOf("http")!==0) window.open(v, "_blank");
+    if (v && v.indexOf("http")===0) window.open(v, "_blank");
     else if (CONFIGS.length) {
       var body = buildSubPageHtml(CONFIGS[0]);
       window.open(URL.createObjectURL(new Blob([body],{type:"text/html;charset=utf-8"})), "_blank");
@@ -490,7 +489,7 @@ textarea{min-height:70px;font-family:monospace;font-size:0.75rem;direction:ltr;t
 
   load();
   renderAll();
-  toast("پنل تست سرعت گیم آماده شد!");
+  toast("پنل جدید گیم و وبگردی آماده است!");
 })();
 </script>
 </body>
